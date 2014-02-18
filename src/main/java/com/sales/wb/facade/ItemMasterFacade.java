@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.sales.wb.entity.ItemMaster;
 
 @Repository
-public class ItemMasterFacade extends AbstractFacade<ItemMaster>{
+public class ItemMasterFacade implements ItemMasterDao{
 	
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -34,6 +34,8 @@ public class ItemMasterFacade extends AbstractFacade<ItemMaster>{
 			return null;
 		}
 	}
+
+	
 
 	
 }

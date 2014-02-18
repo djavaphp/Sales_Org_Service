@@ -2,22 +2,22 @@ package com.sales.wb.service.imp;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.transaction.annotation.Transactional;
 import com.sales.wb.common.Resp;
 import com.sales.wb.common.RespCode;
 import com.sales.wb.entity.ItemMaster;
-import com.sales.wb.facade.AbstractFacade;
-import com.sales.wb.facade.ItemMasterFacade;
+import com.sales.wb.facade.ItemMasterDao;
 import com.sales.wb.service.ItemMasterService;
 import com.sales.wb.vo.ItemMasterVO;
+
 
 public class ItemMasterServiceImp  implements ItemMasterService {
 
 	@Autowired
-	ItemMasterFacade itemFacade;
+	private	ItemMasterDao itemFacade;
 	
+	@Transactional
 	public Resp createItem(ItemMasterVO vo) {
 		Resp resp = new Resp();
 		if (vo != null) {
@@ -38,22 +38,31 @@ public class ItemMasterServiceImp  implements ItemMasterService {
 		return resp;
 	}
 
-	public ItemMasterVO getAllItemMaster() {
-		List<ItemMasterVO> getAllItemList = new ArrayList<ItemMasterVO>();
-		List<ItemMaster> getList = new ArrayList<ItemMaster>();		
-		getList= itemFacade.findAll();
-		System.out.println(" **** List Size :  "+ getList.size());
-		ItemMasterVO itemMasterVO;
-		for(ItemMaster vo : getList){
-			itemMasterVO = new ItemMasterVO();
-			itemMasterVO.setItemCode(vo.getItemcode());
-			itemMasterVO.setItemId(vo.getItemId());
-			itemMasterVO.setItemName(vo.getItemName());
-			getAllItemList.add(itemMasterVO);
+	@Transactional
+	public List<ItemMasterVO> getAllItemMaster() {
+		List<ItemMasterVO> getAllItemList;
+		try{
+			getAllItemList = new ArrayList<ItemMasterVO>();
+			List<ItemMaster> getList = new ArrayList<ItemMaster>();		
+			getList= itemFacade.findAll();
+			System.out.println(" **** List Size :  "+ getList.size());
+			ItemMasterVO itemMasterVO;
+			for(ItemMaster vo : getList){
+				itemMasterVO = new ItemMasterVO();
+				itemMasterVO.setItemCode(vo.getItemcode());
+				itemMasterVO.setItemId(vo.getItemId());
+				itemMasterVO.setItemName(vo.getItemName());
+				getAllItemList.add(itemMasterVO);
+			}
+			return getAllItemList;
+		}catch(Exception e){
+			e.printStackTrace();			
+			return getAllItemList = new ArrayList<ItemMasterVO>();
 		}
-		return (ItemMasterVO) getAllItemList;
+		
 	}
 
+	@Transactional
 	public Resp updateItem(ItemMasterVO itemMasterVO) {
 		Resp resp = new Resp();
 		if (itemMasterVO != null) {
@@ -68,6 +77,7 @@ public class ItemMasterServiceImp  implements ItemMasterService {
 		return resp;
 	}
 
+	@Transactional
 	public Resp deleteItem(Long itemId) {
 		Resp resp = new Resp();
 		if (itemId != null) {
@@ -80,7 +90,6 @@ public class ItemMasterServiceImp  implements ItemMasterService {
 
 		}
 		return resp;
-	}
-
+	}	
 }
 
