@@ -3,19 +3,22 @@ package com.sales.wb.service.imp;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.sales.wb.common.Resp;
 import com.sales.wb.common.RespCode;
 import com.sales.wb.entity.ItemMaster;
+import com.sales.wb.facade.AbstractDao;
 import com.sales.wb.facade.ItemMasterDao;
 import com.sales.wb.service.ItemMasterService;
+import com.sales.wb.vo.GetItemMasterResp;
 import com.sales.wb.vo.ItemMasterVO;
 
-
+@Service
 public class ItemMasterServiceImp  implements ItemMasterService {
 
 	@Autowired
-	private	ItemMasterDao itemFacade;
+	private	AbstractDao<ItemMaster> itemFacade;
 	
 	@Transactional
 	public Resp createItem(ItemMasterVO vo) {
@@ -37,14 +40,14 @@ public class ItemMasterServiceImp  implements ItemMasterService {
 		}		
 		return resp;
 	}
-
+	
 	@Transactional
-	public List<ItemMasterVO> getAllItemMaster() {
-		List<ItemMasterVO> getAllItemList;
+	public GetItemMasterResp getAllItemMasterDtl() {
+		GetItemMasterResp resp = new GetItemMasterResp();
 		try{
-			getAllItemList = new ArrayList<ItemMasterVO>();
+			List<ItemMasterVO> getAllItemList = new ArrayList<ItemMasterVO>();
 			List<ItemMaster> getList = new ArrayList<ItemMaster>();		
-			getList= itemFacade.findAll();
+			getList= itemFacade.getAll();
 			System.out.println(" **** List Size :  "+ getList.size());
 			ItemMasterVO itemMasterVO;
 			for(ItemMaster vo : getList){
@@ -54,10 +57,13 @@ public class ItemMasterServiceImp  implements ItemMasterService {
 				itemMasterVO.setItemName(vo.getItemName());
 				getAllItemList.add(itemMasterVO);
 			}
-			return getAllItemList;
+			resp.setList(getAllItemList);
+			resp.setResp(new Resp(RespCode.SUCCESS, "Data Retrived Successfully"));
+			return resp;
 		}catch(Exception e){
-			e.printStackTrace();			
-			return getAllItemList = new ArrayList<ItemMasterVO>();
+			e.printStackTrace();	
+			resp.setResp(new Resp(RespCode.FAIL, "Exception."));
+			return resp;
 		}
 		
 	}
@@ -67,7 +73,7 @@ public class ItemMasterServiceImp  implements ItemMasterService {
 		Resp resp = new Resp();
 		if (itemMasterVO != null) {
 			resp.setRespCode(RespCode.SUCCESS);
-			resp.setRespMsg("Item inserted Succesfully !");
+			resp.setRespMsg("Item updated Succesfully !");
 		} else {
 
 			resp.setRespCode(RespCode.FAIL);
@@ -82,7 +88,7 @@ public class ItemMasterServiceImp  implements ItemMasterService {
 		Resp resp = new Resp();
 		if (itemId != null) {
 			resp.setRespCode(RespCode.SUCCESS);
-			resp.setRespMsg("Item inserted Succesfully !");
+			resp.setRespMsg("Item deleted Succesfully !");
 		} else {
 
 			resp.setRespCode(RespCode.FAIL);

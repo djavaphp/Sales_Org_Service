@@ -5,7 +5,8 @@
 
  
 <hibernate-configuration>
-    <session-factory>
+    <session-factory>   
+    
         <mapping class="com.sales.wb.entity.ItemMaster" />
     </session-factory>	    
 </hibernate-configuration>

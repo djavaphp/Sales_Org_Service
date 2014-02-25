@@ -3,6 +3,18 @@ package com.sales.wb.common;
 public class Resp {
 	private RespCode respCode;
 	private String respMsg;
+	
+	
+	public Resp() {
+		super();
+	}
+
+	public Resp(RespCode respCode, String respMsg) {
+	
+		this.respCode = respCode;
+		this.respMsg = respMsg;
+	}
+	
 	public RespCode getRespCode() {
 		return respCode;
 	}
