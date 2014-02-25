@@ -15,6 +15,6 @@ public interface ItemMasterService {
 	
 	public Resp createItem(ItemMasterVO itemMasterVO);	
 	public Resp updateItem(ItemMasterVO itemMasterVO);
-	public Resp deleteItem(Long itemId);
+	public Resp blockItem(Long itemId);
 	public GetItemMasterResp getAllItemMasterDtl();
 }

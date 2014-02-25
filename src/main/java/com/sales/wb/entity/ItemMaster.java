@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 
 @Entity
 @Table(name="item_master")
@@ -27,6 +29,9 @@ public class ItemMaster implements java.io.Serializable{
 
 	@Column(name="item_name")
 	private String itemName;
+	
+	@Column(name="is_active" )
+	private Boolean isActive;
 
 	public ItemMaster() {		
 	}
@@ -60,6 +65,14 @@ public class ItemMaster implements java.io.Serializable{
 
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
+	}
+
+	public Boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(Boolean isActive) {
+		this.isActive = isActive;
 	}
 	
 	
