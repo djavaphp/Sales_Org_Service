@@ -7,9 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Type;
-
-
+/**
+*
+* @author Kruti Jani
+*/
 @Entity
 @Table(name="item_master")
 public class ItemMaster implements java.io.Serializable{

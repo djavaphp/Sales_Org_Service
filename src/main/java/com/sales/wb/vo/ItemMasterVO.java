@@ -1,5 +1,9 @@
 package com.sales.wb.vo;
 
+/**
+*
+* @author Kruti Jani
+*/
 public class ItemMasterVO {
 	private Long itemId;
 	private String itemCode;

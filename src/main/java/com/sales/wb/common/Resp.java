@@ -1,9 +1,13 @@
 package com.sales.wb.common;
 
+/**
+*
+* @author Kruti Jani
+*/
+
 public class Resp {
 	private RespCode respCode;
-	private String respMsg;
-	
+	private String respMsg;	
 	
 	public Resp() {
 		super();

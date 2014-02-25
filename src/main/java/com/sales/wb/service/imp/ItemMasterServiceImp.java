@@ -6,14 +6,21 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.sales.wb.common.CommonMessages;
 import com.sales.wb.common.Resp;
 import com.sales.wb.common.RespCode;
 import com.sales.wb.entity.ItemMaster;
 import com.sales.wb.facade.AbstractDao;
 import com.sales.wb.service.ItemMasterService;
-import com.sales.wb.vo.GetItemMasterResp;
+import com.sales.wb.service.vo.GetItemMasterResp;
+import com.sales.wb.utils.MasterDataUtil;
 import com.sales.wb.vo.ItemMasterVO;
 
+/**
+*
+* @author Kruti Jani
+*/
 @Service
 public class ItemMasterServiceImp implements ItemMasterService {
 
@@ -22,103 +29,81 @@ public class ItemMasterServiceImp implements ItemMasterService {
 
 	@Transactional
 	public Resp createItem(ItemMasterVO vo) {
-		Resp resp = new Resp();
-		if (vo != null) {
-			// System.out.println("--- Item Code : "+ vo.getItemCode());
-			// System.out.println("--- Item Name : "+ vo.getItemName());
-			ItemMaster itemMaster = new ItemMaster();
-			itemMaster.setItemcode(vo.getItemCode());
-			itemMaster.setItemName(vo.getItemName());
-			itemMaster.setActive(vo.isActive());
-			itemFacade.create(itemMaster);
-			// System.out.println("****  Created Succesfully. Item Code is :  "+
-			// itemMaster.getItemcode());
-			resp.setRespCode(RespCode.SUCCESS);
-			resp.setRespMsg("Item inserted Succesfully. Item Code is :  "
-					+ itemMaster.getItemcode());
-		} else {
-			resp.setRespCode(RespCode.FAIL);
-			resp.setRespMsg("Failure !");
-
-		}
-		return resp;
+		try{			
+			if (vo != null) {
+				ItemMaster itemMaster =	MasterDataUtil.converItemMasterForCreate(vo);
+				itemFacade.create(itemMaster);			
+				return new Resp(RespCode.SUCCESS, CommonMessages.ITEM_MASTER_SERVICE_CREATE_SUCCESS + itemMaster.getItemcode());				
+			} else {
+				return new Resp(RespCode.FAIL, CommonMessages.ITEM_MASTER_SERVICE_CREATE_FAILURE);
+			}		
+		}catch(Exception e){
+			e.printStackTrace();
+			return new Resp(RespCode.FAIL, CommonMessages.EXCEPTION_MESSAGE);
+		}		
 	}
 
 	@Transactional
-	public GetItemMasterResp getAllItemMasterDtl() {
-		GetItemMasterResp resp = new GetItemMasterResp();
-		try {
+	public GetItemMasterResp getAllItemMasterDtl() {		
+		try {			
 			List<ItemMasterVO> getAllItemList = new ArrayList<ItemMasterVO>();
-			List<ItemMaster> getList = new ArrayList<ItemMaster>();
-			getList = itemFacade.getAll();
-			System.out.println(" **** List Size :  " + getList.size());
-			ItemMasterVO itemMasterVO;
-			for (ItemMaster vo : getList) {
-				itemMasterVO = new ItemMasterVO();
-				itemMasterVO.setItemCode(vo.getItemcode());
-				itemMasterVO.setItemId(vo.getItemId());
-				itemMasterVO.setItemName(vo.getItemName());
-				itemMasterVO.setActive(vo.isActive());
-				getAllItemList.add(itemMasterVO);
-			}
-			resp.setList(getAllItemList);
-			resp.setResp(new Resp(RespCode.SUCCESS,
-					"Data Retrived Successfully"));
-			return resp;
+			List<ItemMaster> getList = itemFacade.getAll();	
+			if(getList.size()>0){				
+				for (ItemMaster vo : getList) {
+					ItemMasterVO itemMasterVO= MasterDataUtil.convertItemMasterForGetData(vo);					
+					getAllItemList.add(itemMasterVO);
+				}
+				return new GetItemMasterResp( new Resp(RespCode.SUCCESS, CommonMessages.ITEM_MASTER_SERVICE_GET_SUCCESS), getAllItemList);
+			}else{
+				return new GetItemMasterResp( new Resp(RespCode.FAIL, CommonMessages.ITEM_MASTER_SERVICE_GET_FAILURE));	
+			}			
 		} catch (Exception e) {
 			e.printStackTrace();
-			resp.setResp(new Resp(RespCode.FAIL, "Exception."));
-			return resp;
+			return new GetItemMasterResp( new Resp(RespCode.FAIL, CommonMessages.EXCEPTION_MESSAGE));
 		}
-
 	}
 
 	@Transactional
 	public Resp updateItem(ItemMasterVO itemMasterVO) {
-		Resp resp = new Resp();
-		if (itemMasterVO != null) {
-			if (itemMasterVO.getItemId() != null) {
-				ItemMaster itemMaster = itemFacade
-						.get(itemMasterVO.getItemId());
-				if (itemMaster != null) {
-					itemMaster.setItemcode(itemMasterVO.getItemCode());
-					itemMaster.setItemName(itemMasterVO.getItemName());
-					resp.setRespCode(RespCode.SUCCESS);
-					resp.setRespMsg("Item updated Succesfully !");
+		try{			
+			if (itemMasterVO != null) {
+				if (itemMasterVO.getItemId() != null) {
+					ItemMaster itemMaster = itemFacade.get(itemMasterVO.getItemId());
+					if (itemMaster != null) {
+						MasterDataUtil.convertItemMasterForUpdateAndDelete(itemMaster, itemMasterVO, true);
+						return new Resp(RespCode.SUCCESS,CommonMessages.ITEM_MASTER_SERVICE_UPDATE_SUCCESS);
+					} else {
+						return new Resp(RespCode.FAIL,CommonMessages.ITEM_MASTER_SERVICE_INVALID_ID);						
+					}
 				} else {
-					resp.setRespCode(RespCode.FAIL);
-					resp.setRespMsg("Invalid Item ID!");
+					return new Resp(RespCode.FAIL,CommonMessages.ITEM_MASTER_SERVICE_BLANK_ID);
 				}
 			} else {
-				resp.setRespCode(RespCode.FAIL);
-				resp.setRespMsg("No Item ID Found!");
-			}
-		} else {
-			resp.setRespCode(RespCode.FAIL);
-			resp.setRespMsg("Failure !");
-		}
-		return resp;
+				return new Resp(RespCode.FAIL,CommonMessages.NO_DATA_FOUND);
+			}			
+		}catch(Exception e){
+			e.printStackTrace();
+			return new Resp(RespCode.FAIL, CommonMessages.EXCEPTION_MESSAGE);
+		}		
 	}
 
 	@Transactional
-	public Resp blockItem(Long itemId) {
-		Resp resp = new Resp();		
-		System.out.println("Item Id : "+ itemId);
+	public Resp blockItem(Long itemId) {	
+		try{
 			if (itemId != null) {
-				ItemMaster itemMaster = itemFacade.get(itemId);
-				System.out.println("Entity : "+ itemMaster);
+				ItemMaster itemMaster = itemFacade.get(itemId);				
 				if (itemMaster != null) {
-					itemMaster.setActive(Boolean.FALSE);
-					resp.setRespCode(RespCode.SUCCESS);
-					resp.setRespMsg("Item Blocked Succesfully !");
+					MasterDataUtil.convertItemMasterForUpdateAndDelete(itemMaster, null, false);
+					return new Resp(RespCode.SUCCESS,CommonMessages.ITEM_MASTER_SERVICE_DELETE_SUCCESS);
 				} else {
-					resp.setRespCode(RespCode.FAIL);
-					resp.setRespMsg("Invalid Item ID!");
+					return new Resp(RespCode.FAIL,CommonMessages.ITEM_MASTER_SERVICE_INVALID_ID);
 				}
 			} else {
-				resp.setRespCode(RespCode.FAIL);
-				resp.setRespMsg("No Item ID Found!");
+				return new Resp(RespCode.FAIL,CommonMessages.ITEM_MASTER_SERVICE_BLANK_ID);
 			}		
-		return resp;
+		}catch(Exception e){
+			e.printStackTrace();
+			return new Resp(RespCode.FAIL, CommonMessages.EXCEPTION_MESSAGE);
+		}
 	}
 }

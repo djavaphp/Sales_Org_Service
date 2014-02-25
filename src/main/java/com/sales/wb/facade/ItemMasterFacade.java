@@ -9,6 +9,10 @@ import org.springframework.stereotype.Repository;
 
 import com.sales.wb.entity.ItemMaster;
 
+/**
+*
+* @author Kruti Jani
+*/
 @Repository
 public class ItemMasterFacade implements AbstractDao<ItemMaster>{
 	

@@ -1,20 +1,27 @@
-package com.sales.wb.vo;
+package com.sales.wb.service.vo;
 
 import java.util.List;
 
 import com.sales.wb.common.Resp;
+import com.sales.wb.vo.ItemMasterVO;
 
+/**
+*
+* @author Kruti Jani
+*/
 public class GetItemMasterResp {
 	private Resp resp;
-	private List<ItemMasterVO> list;
-	
+	private List<ItemMasterVO> itemList;	
 	
 	public GetItemMasterResp() {
 		super();
 	}
 	public GetItemMasterResp(Resp resp, List<ItemMasterVO> list) {	
 		this.resp = resp;
-		this.list = list;
+		this.itemList = list;
+	}
+	public GetItemMasterResp(Resp resp) {
+		this.resp = resp;
 	}
 	public Resp getResp() {
 		return resp;
@@ -23,10 +30,10 @@ public class GetItemMasterResp {
 		this.resp = resp;
 	}
 	public List<ItemMasterVO> getList() {
-		return list;
+		return itemList;
 	}
 	public void setList(List<ItemMasterVO> list) {
-		this.list = list;
+		this.itemList = list;
 	}
 
 	
