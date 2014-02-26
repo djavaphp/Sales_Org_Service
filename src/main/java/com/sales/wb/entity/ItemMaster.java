@@ -1,5 +1,7 @@
 package com.sales.wb.entity;
 
+
+
 import javax.persistence.Column;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Entity;
@@ -13,12 +15,8 @@ import javax.persistence.Table;
 */
 @Entity
 @Table(name="item_master")
-public class ItemMaster implements java.io.Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
+public class ItemMaster {
+	
 	@Id
 	@Column(name="item_id")
 	@GeneratedValue(strategy = IDENTITY)

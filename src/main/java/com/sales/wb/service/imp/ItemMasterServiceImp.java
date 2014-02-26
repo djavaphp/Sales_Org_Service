@@ -2,7 +2,6 @@ package com.sales.wb.service.imp;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +10,7 @@ import com.sales.wb.common.CommonMessages;
 import com.sales.wb.common.Resp;
 import com.sales.wb.common.RespCode;
 import com.sales.wb.entity.ItemMaster;
-import com.sales.wb.facade.AbstractDao;
+import com.sales.wb.facade.ItemMasterFacade;
 import com.sales.wb.service.ItemMasterService;
 import com.sales.wb.service.vo.GetItemMasterResp;
 import com.sales.wb.utils.MasterDataUtil;
@@ -24,8 +23,12 @@ import com.sales.wb.vo.ItemMasterVO;
 @Service
 public class ItemMasterServiceImp implements ItemMasterService {
 
-	@Autowired
-	private AbstractDao<ItemMaster> itemFacade;
+	/*AbstractDao is a common interface can not autowire with different bean so 
+	 * used orignalbean to implement autowire
+	 * @Qualifier can also be implemented if spring ver is 4+
+	  */
+	@Autowired	
+	private ItemMasterFacade itemFacade;
 
 	@Transactional
 	public Resp createItem(ItemMasterVO vo) {
@@ -106,4 +109,5 @@ public class ItemMasterServiceImp implements ItemMasterService {
 			return new Resp(RespCode.FAIL, CommonMessages.EXCEPTION_MESSAGE);
 		}
 	}
+	
 }
