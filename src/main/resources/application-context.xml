@@ -18,10 +18,12 @@
 
 	<!-- Spring manage ServiceBean -->
 	<bean id="itemMasterServiceimp" class="com.sales.wb.service.imp.ItemMasterServiceImp" />
+	<bean id="employeeMasterServiceimp" class="com.sales.wb.service.imp.EmployeeMasterServiceImp" />
 
 	<!-- JAX-WS Service Endpoint -->
 	<jaxws:endpoint id="itemMasterService" implementor="#itemMasterServiceimp"
 		address="/itemService" />
+		<jaxws:endpoint id="employeeMasterService" implementor="#employeeMasterServiceimp" address="/employeeService"/>
 
 <context:annotation-config />
 	<context:component-scan base-package="com.sales.wb" />

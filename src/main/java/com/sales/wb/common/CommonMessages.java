@@ -26,4 +26,24 @@ public class CommonMessages {
 	
 	public static final String ITEM_MASTER_SERVICE_INVALID_ID="Invalid Item ID !";
 	public static final String ITEM_MASTER_SERVICE_BLANK_ID="No Item ID Found!";
+	
+	/* EmployeeMaster CommonMessages */
+	public static final String EMPLOYEE_MASTER_SERVICE_CREATE_SUCCESS = "Employee saved Successfully ! Employee Code is ";
+	public static final String EMPLOYEE_MASTER_SERVICE_CREATE_FAILURE= "Employee not saved properly. Please try again.";
+	
+	
+	public static final String EMPLOYEE_MASTER_SERVICE_UPDATE_SUCCESS = "Employee updated Successfully !";
+	public static final String EMPLOYEE_MASTER_SERVICE_UPDATE_FAILURE = "Employee not updated properly. Please try again.";
+	
+
+	public static final String EMPLOYEE_MASTER_SERVICE_DELETE_SUCCESS = "Employee deleted Successfully !";
+	public static final String EMPLOYEE_MASTER_SERVICE_DELETE_FAILURE = "Employee not deleted properly. Please try again.";
+	
+
+	public static final String EMPLOYEE_MASTER_SERVICE_GET_SUCCESS = "Employee Data Retrived Successfully";
+	public static final String EMPLOYEE_MASTER_SERVICE_GET_FAILURE = "Not able to retrive Employee Data. Please try again.";
+	
+	public static final String EMPLOYEE_MASTER_SERVICE_INVALID_ID="Invalid Employee ID !";
+	public static final String EMPLOYEE_MASTER_SERVICE_BLANK_ID="No Employee ID Found!";
+
 }

@@ -1,6 +1,8 @@
 package com.sales.wb.utils;
 
+import com.sales.wb.entity.MstEmployee;
 import com.sales.wb.entity.ItemMaster;
+import com.sales.wb.vo.EmployeeMasterVO;
 import com.sales.wb.vo.ItemMasterVO;
 
 /**
@@ -32,6 +34,25 @@ public class MasterDataUtil {
 		itemMasterVO.setItemName(vo.getItemName());
 		itemMasterVO.setActive(vo.isActive());
 		return itemMasterVO;
+	}
+	public static MstEmployee convertEmployeeMasterForCreate(EmployeeMasterVO vo){
+		MstEmployee master = new MstEmployee();
+		master.setEmpName(vo.getEmpName());
+		return master;
+	}
+	public static void convertEmployeeMasterForUpdateAndDelete(MstEmployee master , EmployeeMasterVO vo , Boolean isUpdate){		
+		if(isUpdate){
+			master.setEmpName(vo.getEmpName());			
+		}else{
+			master.setIsActive(Boolean.FALSE);
+		}		
+	}
+	public static EmployeeMasterVO convertEmployeeMasterForGetData(MstEmployee vo){
+		EmployeeMasterVO empVo = new EmployeeMasterVO();
+		empVo.setEmpName(vo.getEmpName());
+		empVo.setIsActive(vo.getIsActive());
+		empVo.setEmpID(vo.getEmpId());
+		return empVo;
 	}
 
 }
