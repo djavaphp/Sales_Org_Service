@@ -1,9 +1,14 @@
 package com.sales.wb.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.sales.wb.common.PaymentMode;
 import com.sales.wb.entity.MstEmployee;
 import com.sales.wb.entity.ItemMaster;
 import com.sales.wb.vo.EmployeeMasterVO;
 import com.sales.wb.vo.ItemMasterVO;
+import com.sales.wb.vo.PaymentModeVo;
 
 /**
  * 
@@ -54,5 +59,15 @@ public class MasterDataUtil {
 		empVo.setEmpID(vo.getEmpId());
 		return empVo;
 	}
-
+	public static List<PaymentModeVo> converPaymentMode(){
+		List<PaymentModeVo> list = new ArrayList<PaymentModeVo>();
+		for(PaymentMode mode:PaymentMode.values()){
+			 PaymentModeVo vo = new PaymentModeVo();			
+			 vo.setPaymentModeId(mode.getPaymentModeID());
+			 vo.setPaymentModeName(mode.toString());
+			 list.add(vo);
+			
+		}		
+		return list;
+	}	
 }

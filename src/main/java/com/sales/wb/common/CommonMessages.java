@@ -1,7 +1,12 @@
 package com.sales.wb.common;
 
+
 /**
-*
+ * This static class holds inner classes which simply maps constants
+ * to attribute keys, so we don't have strings floating around all
+ * over the place.
+ *
+ * Also, this gives us a single place to document the various attributes.
 * @author Kruti Jani
 */
 public class CommonMessages {
@@ -45,5 +50,9 @@ public class CommonMessages {
 	
 	public static final String EMPLOYEE_MASTER_SERVICE_INVALID_ID="Invalid Employee ID !";
 	public static final String EMPLOYEE_MASTER_SERVICE_BLANK_ID="No Employee ID Found!";
+	
+
+	public static final String PAYMENT_MODE_GET_SUCCESS="Payment Mode data retrived succesfully !";
+	public static final String PAYMENT_MODE_GET_FAILURE="No Payment Mode Data Found.";
 
 }
