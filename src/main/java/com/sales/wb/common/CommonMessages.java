@@ -51,12 +51,30 @@ public class CommonMessages {
 	public static final String EMPLOYEE_MASTER_SERVICE_INVALID_ID="Invalid Employee ID !";
 	public static final String EMPLOYEE_MASTER_SERVICE_BLANK_ID="No Employee ID Found!";
 	
-	/* CommonService CommonMessages */
+	/* CommonService CommonMessages related to Payment */
 	public static final String PAYMENT_MODE_GET_SUCCESS="Payment Mode data retrived succesfully !";
 	public static final String PAYMENT_MODE_GET_FAILURE="No Payment Mode Data Found.";
 	
-	/* CommonService CommonMessages */
+	/* CommonService CommonMessages related to Company*/
 	public static final String COMPANY_DETAIILS_GET_SUCCESS="Company data retrived succesfully !";
 	public static final String COMPANY_DETAIILS_GET_FAILURE="No Company Data Found.";
 
+	/* CommonService CommonMessages related to BillBook*/
+	public static final String BILL_BOOK_GET_SUCCESS="Bill Book data retrived succesfully !";
+	public static final String BILL_BOOK_GET_FAILURE="No Bill Book Data Found.";
+	
+	public static final String BILL_BOOK_SERVICE_CREATE_SUCCESS = "Bill Book saved Successfully ! Bill Book Number is ";
+	public static final String BILL_BOOK_SERVICE_CREATE_FAILURE= "Bill Book not saved properly. Please try again.";
+	
+	
+	public static final String BILL_BOOK_SERVICE_UPDATE_SUCCESS = "Bill Book updated Successfully !";
+	public static final String BILL_BOOK_SERVICE_UPDATE_FAILURE = "Bill Book not updated properly. Please try again.";
+	
+
+	public static final String BILL_BOOK_SERVICE_DELETE_SUCCESS = "Bill Book deleted Successfully !";
+	public static final String BILL_BOOK_SERVICE_DELETE_FAILURE = "Bill Book not deleted properly. Please try again.";
+	
+	public static final String BILL_BOOK_SERVICE_INVALID_ID="Invalid Bill Book ID !";
+	public static final String BILL_BOOK_SERVICE_BLANK_ID="No Bill Book ID Found!";
+	
 }

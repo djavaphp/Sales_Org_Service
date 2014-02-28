@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.sales.wb.common.PaymentMode;
+import com.sales.wb.entity.BillBookMaster;
 import com.sales.wb.entity.CompanyMaster;
 import com.sales.wb.entity.MstEmployee;
 import com.sales.wb.entity.ItemMaster;
+import com.sales.wb.vo.BillBookVo;
 import com.sales.wb.vo.CompanyVo;
 import com.sales.wb.vo.EmployeeMasterVO;
 import com.sales.wb.vo.ItemMasterVO;
@@ -79,5 +81,26 @@ public class MasterDataUtil {
 		vo.setCompanyPhoneNo(company.getCompanyPhoneno());
 		vo.setCompanyMobileNo(company.getCompanyMobileno());
 		return vo;
+	}
+	
+	public static BillBookMaster convertBillBookForCreate(BillBookVo vo){
+		BillBookMaster master = new BillBookMaster();
+		master.setBillBookNumber(vo.getBillBookNum());
+		master.setStartRange(vo.getStartRange());
+		master.setEndRange(vo.getEndRange());
+		return master;
+	}
+	public static void convertBillBookMasterForUpdate(BillBookMaster master , BillBookVo vo){			
+			master.setBillBookNumber(vo.getBillBookNum());
+			master.setEndRange(vo.getEndRange());
+			master.setStartRange(vo.getStartRange());		
+	}
+	public static BillBookVo convertBillBookForGetData(BillBookMaster vo){
+		BillBookVo billbook = new BillBookVo();
+		billbook.setBillBookId(vo.getBillBookId());
+		billbook.setBillBookNum(vo.getBillBookNumber());
+		billbook.setStartRange(vo.getStartRange());
+		billbook.setEndRange(vo.getEndRange());
+		return billbook;
 	}
 }
