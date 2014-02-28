@@ -1,61 +1,24 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.codereq.cxfservices</groupId>
-	<artifactId>Sales_Org_Service</artifactId>
+	<groupId>com.demo</groupId>
+	<artifactId>SpringHibernatMVC</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Sales_Org_Service Maven Webapp</name>
+	<name>SpringHibernatMVC Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
 	<!-- Dependency properties -->
 	<properties>
+	<org.springframework.version>3.0.5.RELEASE</org.springframework.version>
+		<org.hibernate.version>3.6.3.Final</org.hibernate.version>
 		<junit-version>4.5</junit-version>
-		<cxf.version>2.2.6</cxf.version>
-		<spring-version>3.0.1.RELEASE</spring-version>
+		<cxf.version>2.2.6</cxf.version>		
 		<commons-logging-version>1.1.1</commons-logging-version>
 	</properties>
 
-	<!-- Plugin configuration -->
-	<build>
-		<finalName>Sales_Org</finalName>
-		<!-- Feel free to change maven-compiler-plugin configuration -->
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.cxf</groupId>
-				<artifactId>cxf-java2ws-plugin</artifactId>
-				<version>${cxf.version}</version>
-				<dependencies>
-					<dependency>
-						<groupId>org.apache.cxf</groupId>
-						<artifactId>cxf-rt-frontend-jaxws</artifactId>
-						<version>${cxf.version}</version>
-					</dependency>
-					<dependency>
-						<groupId>org.apache.cxf</groupId>
-						<artifactId>cxf-rt-frontend-simple</artifactId>
-						<version>${cxf.version}</version>
-					</dependency>
-				</dependencies>
-				<!-- <executions> <execution> <id>process-classes</id> <phase>process-classes</phase> 
-					<configuration> <className>com.unitedcoders.demo.PersonService</className> 
-					<genWsdl>true</genWsdl> <verbose>true</verbose> </configuration> <goals> 
-					<goal>java2ws</goal> </goals> </execution> </executions> -->
-			</plugin>
-		</plugins>
-	</build>
-
-	<!-- Dependency definitions -->
+		<!-- Dependency definitions -->
 	<dependencies>
-
 		<!-- Apache CXF dependencies -->
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
@@ -72,12 +35,12 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
-			<version>${spring-version}</version>
+				<version>${org.springframework.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			<version>${spring-version}</version>
+				<version>${org.springframework.version}</version>
 		</dependency>
 
 		<dependency>
@@ -85,6 +48,7 @@
 			<artifactId>spring-orm</artifactId>
 			<version>${org.springframework.version}</version>
 		</dependency>
+		
 		<!-- MySql Database -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -96,7 +60,14 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>4.1.9.Final</version>
+			<version>${org.hibernate.version}</version>		
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${org.hibernate.version}</version>		
 		</dependency>
 
 		<!-- Logging -->
@@ -106,12 +77,11 @@
 			<version>${commons-logging-version}</version>
 		</dependency>
 
-		<!-- Testing -->
+		<!-- Commons Database Connection Pooling -->
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit-version}</version>
-			<scope>test</scope>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.2.2</version>
 		</dependency>
 	</dependencies>
 </project>

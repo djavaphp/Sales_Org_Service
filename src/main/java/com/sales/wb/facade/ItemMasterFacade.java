@@ -23,14 +23,14 @@ public class ItemMasterFacade implements AbstractDao<ItemMaster>{
 		 return (Long) sessionFactory.getCurrentSession().save(entity);
 		
 	}
-	
+/*	
 	public void update(ItemMaster entity){
 		sessionFactory.getCurrentSession().update(entity);
 	}
 	
 	public void delete(ItemMaster entity){
 		sessionFactory.getCurrentSession().delete(entity);
-	}
+	}*/
 	
 	public List<ItemMaster> getAll(){
 		try{

@@ -23,14 +23,14 @@ public class EmployeeMasterFacade implements AbstractDao<MstEmployee>{
 		
 	}
 	
-	public void update(MstEmployee entity){
+/*	public void update(MstEmployee entity){
 		sessionFactory.getCurrentSession().update(entity);
 	}
 	
 	public void delete(MstEmployee entity){
 		sessionFactory.getCurrentSession().delete(entity);
 	}
-	
+*/	
 	public List<MstEmployee> getAll(){
 		try{
 			Query q = sessionFactory.getCurrentSession().createQuery("select g from MstEmployee g"); 

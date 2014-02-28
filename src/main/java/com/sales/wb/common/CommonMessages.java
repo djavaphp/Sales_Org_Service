@@ -14,7 +14,7 @@ public class CommonMessages {
 	public static final String EXCEPTION_MESSAGE = "Exception";
 	public static final String NO_DATA_FOUND = "No Data Found !";
 
-	/* ItemMaster CommonMessages */
+	/* ItemMasterService CommonMessages */
 	public static final String ITEM_MASTER_SERVICE_CREATE_SUCCESS = "Item saved Successfully ! Item Code is ";
 	public static final String ITEM_MASTER_SERVICE_CREATE_FAILURE = "Item not saved properly. Please try again.";
 
@@ -32,7 +32,7 @@ public class CommonMessages {
 	public static final String ITEM_MASTER_SERVICE_INVALID_ID="Invalid Item ID !";
 	public static final String ITEM_MASTER_SERVICE_BLANK_ID="No Item ID Found!";
 	
-	/* EmployeeMaster CommonMessages */
+	/* EmployeeMasterService CommonMessages */
 	public static final String EMPLOYEE_MASTER_SERVICE_CREATE_SUCCESS = "Employee saved Successfully ! Employee Code is ";
 	public static final String EMPLOYEE_MASTER_SERVICE_CREATE_FAILURE= "Employee not saved properly. Please try again.";
 	
@@ -51,8 +51,12 @@ public class CommonMessages {
 	public static final String EMPLOYEE_MASTER_SERVICE_INVALID_ID="Invalid Employee ID !";
 	public static final String EMPLOYEE_MASTER_SERVICE_BLANK_ID="No Employee ID Found!";
 	
-
+	/* CommonService CommonMessages */
 	public static final String PAYMENT_MODE_GET_SUCCESS="Payment Mode data retrived succesfully !";
 	public static final String PAYMENT_MODE_GET_FAILURE="No Payment Mode Data Found.";
+	
+	/* CommonService CommonMessages */
+	public static final String COMPANY_DETAIILS_GET_SUCCESS="Company data retrived succesfully !";
+	public static final String COMPANY_DETAIILS_GET_FAILURE="No Company Data Found.";
 
 }

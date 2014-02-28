@@ -4,6 +4,7 @@ import javax.jws.WebService;
 
 import org.springframework.stereotype.Service;
 
+import com.sales.wb.service.vo.GetCompanyResp;
 import com.sales.wb.service.vo.GetPaymentModeResp;
 
 /**
@@ -14,4 +15,5 @@ import com.sales.wb.service.vo.GetPaymentModeResp;
 @Service
 public interface CommonService {
 	public GetPaymentModeResp getAllPaymentModes();
+	public GetCompanyResp getCompanyDetail();
 }

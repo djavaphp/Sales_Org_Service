@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.sales.wb.common.PaymentMode;
+import com.sales.wb.entity.CompanyMaster;
 import com.sales.wb.entity.MstEmployee;
 import com.sales.wb.entity.ItemMaster;
+import com.sales.wb.vo.CompanyVo;
 import com.sales.wb.vo.EmployeeMasterVO;
 import com.sales.wb.vo.ItemMasterVO;
 import com.sales.wb.vo.PaymentModeVo;
@@ -65,9 +67,17 @@ public class MasterDataUtil {
 			 PaymentModeVo vo = new PaymentModeVo();			
 			 vo.setPaymentModeId(mode.getPaymentModeID());
 			 vo.setPaymentModeName(mode.toString());
-			 list.add(vo);
-			
+			 list.add(vo);			
 		}		
 		return list;
 	}	
+	public static CompanyVo converCompanyDtl(CompanyMaster company){
+		CompanyVo vo = new CompanyVo();
+		vo.setCompanyID(company.getCompanyId());
+		vo.setCompanyName(company.getCompanyName());
+		vo.setCompanyAddress(company.getCompanyAddress());
+		vo.setCompanyPhoneNo(company.getCompanyPhoneno());
+		vo.setCompanyMobileNo(company.getCompanyMobileno());
+		return vo;
+	}
 }
