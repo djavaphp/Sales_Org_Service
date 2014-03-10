@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.sales.wb.common.PaymentMode;
+import com.sales.wb.entity.AreaMaster;
 import com.sales.wb.entity.BillBookMaster;
 import com.sales.wb.entity.CompanyMaster;
 import com.sales.wb.entity.MstEmployee;
 import com.sales.wb.entity.ItemMaster;
+import com.sales.wb.vo.AreaVO;
 import com.sales.wb.vo.BillBookVo;
 import com.sales.wb.vo.CompanyVo;
 import com.sales.wb.vo.EmployeeMasterVO;
@@ -102,5 +104,24 @@ public class MasterDataUtil {
 		billbook.setStartRange(vo.getStartRange());
 		billbook.setEndRange(vo.getEndRange());
 		return billbook;
+	}
+	public static AreaMaster convertAreaForCreate(AreaVO vo){
+		AreaMaster master = new AreaMaster();
+		master.setMstAreaCode(vo.getAreaCode());
+		master.setMstAreaId(vo.getAreaID());
+		master.setMstAreaName(vo.getAreaName());
+		return master;
+	}
+	public static void convertAreaForUpdate(AreaMaster master , AreaVO vo){			
+		master.setMstAreaCode(vo.getAreaCode());
+		master.setMstAreaId(vo.getAreaID());
+		master.setMstAreaName(vo.getAreaName());	
+	}
+	public static AreaVO convertAreaForGetData(AreaMaster master){
+		AreaVO area = new AreaVO();
+		area.setAreaCode(master.getMstAreaCode());
+		area.setAreaID(master.getMstAreaId());
+		area.setAreaName(master.getMstAreaName());
+		return area;
 	}
 }

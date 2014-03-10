@@ -16,21 +16,17 @@
 	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 
-	<!-- Spring manage ServiceBean -->
-	<bean id="itemMasterServiceimp" class="com.sales.wb.service.imp.ItemMasterServiceImp" />
-	<bean id="employeeMasterServiceimp" class="com.sales.wb.service.imp.EmployeeMasterServiceImp" />
-	<bean id="commonServiceimp" class="com.sales.wb.service.imp.CommonServiceImp" />
+	<!-- Spring manage ServiceBean -->	
+	<bean id="masterServiceimp" class="com.sales.wb.service.imp.MasterServiceImp" />
 
-	<!-- JAX-WS Service Endpoint -->
-	<jaxws:endpoint id="itemMasterService" implementor="#itemMasterServiceimp"
-		address="/itemService" />
-	<jaxws:endpoint id="employeeMasterService" implementor="#employeeMasterServiceimp" address="/employeeService"/>
-	<jaxws:endpoint id="commonService" implementor="#commonServiceimp" address="/commonService"/>
-
-<context:annotation-config />
+	<!-- JAX-WS Service Endpoint starts -->
+	<jaxws:endpoint id="masterService" implementor="#masterServiceimp" address="/MasterService"/>
+	<!-- JAX-WS Service Endpoint End-->
+	
+	<context:annotation-config />
 	<context:component-scan base-package="com.sales.wb" />
 
-<bean id="propertyConfigurer"
+	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
 		p:location="/WEB-INF/jdbc.properties" />
 
@@ -39,8 +35,6 @@
 		p:driverClassName="${jdbc.driverClassName}"
 		p:url="${jdbc.databaseurl}" p:username="${jdbc.username}"
 		p:password="${jdbc.password}" />
-
-
 
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
@@ -74,6 +68,4 @@
 			<ref bean="dataSource" />
 		</property>
 	</bean> -->
-
-
 </beans>

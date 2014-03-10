@@ -62,7 +62,4 @@ public class BillBookMaster {
 		this.endRange = endRange;
 	}
 	
-	
-	
-	
 }
