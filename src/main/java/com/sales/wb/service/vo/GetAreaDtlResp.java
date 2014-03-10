@@ -1,5 +1,8 @@
 package com.sales.wb.service.vo;
-
+/**
+ * 
+ * @author Kruti Jani
+ */
 import java.util.List;
 
 import com.sales.wb.common.Resp;

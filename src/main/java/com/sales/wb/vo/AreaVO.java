@@ -1,5 +1,8 @@
 package com.sales.wb.vo;
-
+/**
+ * 
+ * @author Kruti Jani
+ */
 public class AreaVO {
 
 	private Long areaID;
