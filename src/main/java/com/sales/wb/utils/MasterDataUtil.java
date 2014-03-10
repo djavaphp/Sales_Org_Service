@@ -39,8 +39,12 @@ public class MasterDataUtil {
 	}
 	public static void convertItemMasterForUpdateAndDelete(ItemMaster master , ItemMasterVO vo , Boolean isUpdate){		
 		if(isUpdate){
+			if(vo.getItemCode()!=null){
 			master.setItemcode(vo.getItemCode());
+			}
+			if(vo.getItemName()!=null){
 			master.setItemName(vo.getItemName());
+			}
 		}else{
 			master.setActive(Boolean.FALSE);
 		}		
