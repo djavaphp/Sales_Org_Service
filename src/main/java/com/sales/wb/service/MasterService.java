@@ -11,13 +11,15 @@ import com.sales.wb.service.vo.GetCompanyResp;
 import com.sales.wb.service.vo.GetEmployeeMasterResp;
 import com.sales.wb.service.vo.GetItemMasterResp;
 import com.sales.wb.service.vo.GetPaymentModeResp;
+import com.sales.wb.service.vo.GetRetailerResp;
 import com.sales.wb.vo.AreaVO;
 import com.sales.wb.vo.BillBookVo;
 import com.sales.wb.vo.EmployeeMasterVO;
 import com.sales.wb.vo.ItemMasterVO;
+import com.sales.wb.vo.RetailerVO;
 
 /**
-* ALL the Common Master Services : PaymentMode , Company , BillBook , Area , Employee , Item
+* ALL the Common Master Services : PaymentMode , Company , BillBook , Area , Employee , Item , Retailer
 * @author Kruti Jani Last modified : 10-03-2014 
 */
 @WebService
@@ -39,4 +41,8 @@ public interface MasterService {
 	public Resp updateItem(ItemMasterVO itemMasterVO);
 	public Resp blockItem(Long itemId);
 	public GetItemMasterResp getAllItemMasterDtl();
+	public Resp createRetailer(RetailerVO vo);
+	public Resp updateRetailer(RetailerVO vo);
+	public Resp blockRetailer(Long id);
+	public GetRetailerResp getRetailerDtl();	
 }

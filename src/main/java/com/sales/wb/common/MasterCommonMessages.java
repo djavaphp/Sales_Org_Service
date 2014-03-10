@@ -68,14 +68,11 @@ public class MasterCommonMessages {
 	
 	public static final String BILL_BOOK_SERVICE_UPDATE_SUCCESS = "Bill Book updated Successfully !";
 	public static final String BILL_BOOK_SERVICE_UPDATE_FAILURE = "Bill Book not updated properly. Please try again.";	
-
-	public static final String BILL_BOOK_SERVICE_DELETE_SUCCESS = "Bill Book deleted Successfully !";
-	public static final String BILL_BOOK_SERVICE_DELETE_FAILURE = "Bill Book not deleted properly. Please try again.";
 	
 	public static final String BILL_BOOK_SERVICE_INVALID_ID="Invalid Bill Book ID !";
 	public static final String BILL_BOOK_SERVICE_BLANK_ID="No Bill Book ID Found!";
 
-	/* MasterService MasterCommonMessages related to BillBook*/
+	/* MasterService MasterCommonMessages related to Area Master*/
 	public static final String AREA_GET_SUCCESS="Area data retrived succesfully !";
 	public static final String AREA_GET_FAILURE="No Area Data Found.";
 	
@@ -85,10 +82,24 @@ public class MasterCommonMessages {
 	public static final String AREA_UPDATE_SUCCESS = "Area updated Successfully !";
 	public static final String AREA_UPDATE_FAILURE = "Area not updated properly. Please try again.";	
 
-	public static final String AREA_DELETE_SUCCESS = "Area deleted Successfully !";
-	public static final String AREA_DELETE_FAILURE = "Area not deleted properly. Please try again.";
-	
 	public static final String AREA_INVALID_ID="Invalid Area ID !";
 	public static final String AREA_BLANK_ID="No Area ID Found!";
+	
+	/* MasterService MasterCommonMessages related to Retailer Master*/
+	public static final String RETAILER_GET_SUCCESS="Retailer data retrived succesfully !";
+	public static final String RETAILER_GET_FAILURE="No Retailer Data Found.";
+	
+	public static final String RETAILER_CREATE_SUCCESS = "Retailer saved Successfully ! Retailer Id is ";
+	public static final String RETAILER_CREATE_FAILURE= "Retailer not saved properly. Please try again.";	
+	
+	public static final String RETAILER_UPDATE_SUCCESS = "Retailer updated Successfully !";
+	public static final String RETAILER_UPDATE_FAILURE = "Retailer not updated properly. Please try again.";	
+
+	public static final String RETAILER_DELETE_SUCCESS = "Retailer deleted Successfully !";
+	public static final String RETAILER_DELETE_FAILURE = "Retailer not deleted properly. Please try again.";
+	
+	public static final String RETAILER_INVALID_ID="Invalid Retailer ID !";
+	public static final String RETAILER_BLANK_ID="No Retailer ID Found!";
+	public static final String RETAILER_AREA_ID_BLANK="No Area Found to mapped with Retailer!";
 
 }

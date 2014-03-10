@@ -1,7 +1,11 @@
 package com.sales.wb.utils;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Repository;
 
 import com.sales.wb.common.PaymentMode;
 import com.sales.wb.entity.AreaMaster;
@@ -9,12 +13,15 @@ import com.sales.wb.entity.BillBookMaster;
 import com.sales.wb.entity.CompanyMaster;
 import com.sales.wb.entity.MstEmployee;
 import com.sales.wb.entity.ItemMaster;
+import com.sales.wb.entity.RetailerMaster;
+import com.sales.wb.service.imp.MasterServiceImp;
 import com.sales.wb.vo.AreaVO;
 import com.sales.wb.vo.BillBookVo;
 import com.sales.wb.vo.CompanyVo;
 import com.sales.wb.vo.EmployeeMasterVO;
 import com.sales.wb.vo.ItemMasterVO;
 import com.sales.wb.vo.PaymentModeVo;
+import com.sales.wb.vo.RetailerVO;
 
 /**
  * 
@@ -22,7 +29,7 @@ import com.sales.wb.vo.PaymentModeVo;
  */
 
 public class MasterDataUtil {
-
+	private static final Logger log = Logger.getLogger(MasterDataUtil.class);
 	public static ItemMaster converItemMasterForCreate(ItemMasterVO vo) {
 		ItemMaster itemMaster = new ItemMaster();
 		itemMaster.setItemcode(vo.getItemCode());
@@ -122,6 +129,56 @@ public class MasterDataUtil {
 		area.setAreaCode(master.getMstAreaCode());
 		area.setAreaID(master.getMstAreaId());
 		area.setAreaName(master.getMstAreaName());
+		Collection<RetailerMaster> list=master.getRetailerMaster();
+		List<RetailerVO> retailerList= new ArrayList<RetailerVO>();
+		log.info("==== Inside convertAreaForGetData == Retailer Size is :  "+ list.size());
+		if(list.size()>0){			
+			for(RetailerMaster retailermaster :list){
+				RetailerVO vo= convertRetailerForGetData(retailermaster);
+				retailerList.add(vo);
+			}
+			area.setRetailerList(retailerList);
+		}		
 		return area;
+	}
+	public static RetailerVO convertRetailerForGetData(RetailerMaster master){
+		RetailerVO vo = new RetailerVO();
+		vo.setRetailerID(master.getRetailerID());
+		vo.setRetailerName(master.getRetailerName());
+		vo.setShopAddress(master.getShopAddress());
+		vo.setShopName(master.getShopName());
+		vo.setShopPhoneNumber(master.getShopPhoneNumber());
+		vo.setIsActive(master.getIsActive());
+		AreaVO areaVO = new AreaVO();
+		areaVO.setAreaCode(master.getAreaMaster().getMstAreaCode());
+		areaVO.setAreaID(master.getAreaMaster().getMstAreaId());
+		areaVO.setAreaName(master.getAreaMaster().getMstAreaName());		
+		vo.setAreaVO(areaVO);
+		return vo;
+	}
+	public static void convertRetailerMasterForUpdateAndDelete(RetailerMaster master , RetailerVO vo , Boolean isUpdate){		
+		if(isUpdate){
+			AreaMaster areaMaster= new AreaMaster();
+			areaMaster.setMstAreaCode(vo.getAreaVO().getAreaCode());
+			areaMaster.setMstAreaId(vo.getAreaVO().getAreaID());
+			areaMaster.setMstAreaName(vo.getAreaVO().getAreaName());			
+			master.setAreaMaster(areaMaster);
+			master.setRetailerName(vo.getRetailerName());
+			master.setShopAddress(vo.getShopAddress());
+			master.setShopName(vo.getShopName());
+			master.setShopPhoneNumber(vo.getShopPhoneNumber());
+		}else{
+			master.setIsActive(false);
+		}		
+	}
+	public static RetailerMaster convertRetailerForCreate(RetailerVO vo , AreaMaster areaMaster){
+		RetailerMaster master = new RetailerMaster();				
+		master.setAreaMaster(areaMaster);
+		master.setRetailerName(vo.getRetailerName());
+		master.setShopAddress(vo.getShopAddress());
+		master.setShopName(vo.getShopName());
+		master.setShopPhoneNumber(vo.getShopPhoneNumber());
+		master.setIsActive(true);
+		return master;
 	}
 }

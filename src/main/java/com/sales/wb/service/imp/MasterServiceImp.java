@@ -16,11 +16,13 @@ import com.sales.wb.entity.BillBookMaster;
 import com.sales.wb.entity.CompanyMaster;
 import com.sales.wb.entity.ItemMaster;
 import com.sales.wb.entity.MstEmployee;
+import com.sales.wb.entity.RetailerMaster;
 import com.sales.wb.facade.AreaFacade;
 import com.sales.wb.facade.BillBookFacade;
 import com.sales.wb.facade.CompanyFacade;
 import com.sales.wb.facade.EmployeeMasterFacade;
 import com.sales.wb.facade.ItemMasterFacade;
+import com.sales.wb.facade.RetailerFacade;
 import com.sales.wb.service.MasterService;
 import com.sales.wb.service.vo.GetAllBillBookDtlResp;
 import com.sales.wb.service.vo.GetAreaDtlResp;
@@ -28,6 +30,7 @@ import com.sales.wb.service.vo.GetCompanyResp;
 import com.sales.wb.service.vo.GetEmployeeMasterResp;
 import com.sales.wb.service.vo.GetItemMasterResp;
 import com.sales.wb.service.vo.GetPaymentModeResp;
+import com.sales.wb.service.vo.GetRetailerResp;
 import com.sales.wb.utils.MasterDataUtil;
 import com.sales.wb.vo.AreaVO;
 import com.sales.wb.vo.BillBookVo;
@@ -35,6 +38,7 @@ import com.sales.wb.vo.CompanyVo;
 import com.sales.wb.vo.EmployeeMasterVO;
 import com.sales.wb.vo.ItemMasterVO;
 import com.sales.wb.vo.PaymentModeVo;
+import com.sales.wb.vo.RetailerVO;
 /**
  * 
  * @author Kruti Jani
@@ -61,6 +65,9 @@ public class MasterServiceImp implements MasterService{
 	
 	@Autowired
 	private AreaFacade areaFacade;	
+	
+	@Autowired
+	private RetailerFacade retailerFacade;
 	
 	public GetPaymentModeResp getAllPaymentModes() {
 		log.info("==== Inside getAllPaymentModes =====");
@@ -396,6 +403,99 @@ public class MasterServiceImp implements MasterService{
 			return new Resp(RespCode.FAIL, MasterCommonMessages.EXCEPTION_MESSAGE);
 		}
 	}
-	
+
+	@Transactional
+	public Resp createRetailer(RetailerVO vo) {
+		log.info("==== Inside createRetailer =====");
+		try{			
+			if (vo != null ) {
+				if(vo.getAreaVO()!=null){
+					AreaMaster areaMaster = areaFacade.get(vo.getAreaVO().getAreaID());
+					if(areaMaster!=null){
+						RetailerMaster retailerMaster =	MasterDataUtil.convertRetailerForCreate(vo, areaMaster);
+						retailerFacade.create(retailerMaster);
+						return new Resp(RespCode.SUCCESS, MasterCommonMessages.RETAILER_CREATE_SUCCESS + retailerMaster.getRetailerID());
+					}else{
+						return new Resp(RespCode.FAIL, MasterCommonMessages.RETAILER_AREA_ID_BLANK);
+					}
+				}else{
+					return new Resp(RespCode.FAIL, MasterCommonMessages.RETAILER_AREA_ID_BLANK);
+				}
+												
+			} else {
+				return new Resp(RespCode.FAIL, MasterCommonMessages.RETAILER_CREATE_FAILURE);
+			}		
+		}catch(Exception e){
+			e.printStackTrace();
+			return new Resp(RespCode.FAIL, MasterCommonMessages.EXCEPTION_MESSAGE);
+		}		
+	}
+
+	@Transactional
+	public Resp updateRetailer(RetailerVO vo) {
+		log.info("==== Inside updateRetailer =====");
+		try{			
+			if (vo != null) {
+				if (vo.getRetailerID()!= null) {
+					RetailerMaster retailermaster = retailerFacade.get(vo.getRetailerID());		
+					if (retailermaster != null) {
+						MasterDataUtil.convertRetailerMasterForUpdateAndDelete(retailermaster, vo, true);
+						return new Resp(RespCode.SUCCESS,MasterCommonMessages.RETAILER_UPDATE_SUCCESS);
+					} else {
+						return new Resp(RespCode.FAIL,MasterCommonMessages.RETAILER_INVALID_ID);						
+					}
+				} else {
+					return new Resp(RespCode.FAIL,MasterCommonMessages.RETAILER_BLANK_ID);
+				}
+			} else {
+				return new Resp(RespCode.FAIL,MasterCommonMessages.NO_DATA_FOUND);
+			}			
+		}catch(Exception e){
+			e.printStackTrace();
+			return new Resp(RespCode.FAIL, MasterCommonMessages.EXCEPTION_MESSAGE);
+		}		
+	}
+
+	@Transactional
+	public Resp blockRetailer(Long id) {
+		log.info("==== Inside blockRetailer =====");
+		try{
+			if (id != null) {
+				RetailerMaster retailermaster = retailerFacade.get(id);				
+				if (retailermaster != null) {
+					MasterDataUtil.convertRetailerMasterForUpdateAndDelete(retailermaster, null, false);
+					return new Resp(RespCode.SUCCESS,MasterCommonMessages.RETAILER_DELETE_SUCCESS);
+				} else {
+					return new Resp(RespCode.FAIL,MasterCommonMessages.RETAILER_DELETE_FAILURE);
+				}
+			} else {
+				return new Resp(RespCode.FAIL,MasterCommonMessages.RETAILER_BLANK_ID);
+			}		
+		}catch(Exception e){
+			e.printStackTrace();
+			return new Resp(RespCode.FAIL, MasterCommonMessages.EXCEPTION_MESSAGE);
+		}
+	}
+
+	@Transactional
+	public GetRetailerResp getRetailerDtl() {
+		log.info("==== Inside getRetailerDtl =====");
+		try {			
+			List<RetailerVO> getRetailerList = new ArrayList<RetailerVO>();
+			List<RetailerMaster> getList = retailerFacade.getAll();				
+			if(getList.size()>0){				
+				for (RetailerMaster vo : getList) {
+					RetailerVO retailervo= MasterDataUtil.convertRetailerForGetData(vo);					
+					getRetailerList.add(retailervo);
+				}
+				return new GetRetailerResp( new Resp(RespCode.SUCCESS, MasterCommonMessages.RETAILER_GET_SUCCESS), getRetailerList);
+			}else{
+				return new GetRetailerResp( new Resp(RespCode.FAIL, MasterCommonMessages.RETAILER_GET_FAILURE));	
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new GetRetailerResp( new Resp(RespCode.FAIL, MasterCommonMessages.EXCEPTION_MESSAGE));
+		}
+	}	
 	
 }
