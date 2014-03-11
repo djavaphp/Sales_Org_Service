@@ -439,7 +439,13 @@ public class MasterServiceImp implements MasterService{
 				if (vo.getRetailerID()!= null) {
 					RetailerMaster retailermaster = retailerFacade.get(vo.getRetailerID());		
 					if (retailermaster != null) {
-						MasterDataUtil.convertRetailerMasterForUpdateAndDelete(retailermaster, vo, true);
+						AreaMaster areaMaster;
+						if(vo.getAreaVO().getAreaID()!=null){
+							areaMaster = areaFacade.get(vo.getAreaVO().getAreaID());
+						}else{
+							areaMaster= retailermaster.getAreaMaster();
+						}
+						MasterDataUtil.convertRetailerMasterForUpdateAndDelete(retailermaster, vo, true , areaMaster);
 						return new Resp(RespCode.SUCCESS,MasterCommonMessages.RETAILER_UPDATE_SUCCESS);
 					} else {
 						return new Resp(RespCode.FAIL,MasterCommonMessages.RETAILER_INVALID_ID);						
@@ -463,7 +469,7 @@ public class MasterServiceImp implements MasterService{
 			if (id != null) {
 				RetailerMaster retailermaster = retailerFacade.get(id);				
 				if (retailermaster != null) {
-					MasterDataUtil.convertRetailerMasterForUpdateAndDelete(retailermaster, null, false);
+					MasterDataUtil.convertRetailerMasterForUpdateAndDelete(retailermaster, null, false,null);
 					return new Resp(RespCode.SUCCESS,MasterCommonMessages.RETAILER_DELETE_SUCCESS);
 				} else {
 					return new Resp(RespCode.FAIL,MasterCommonMessages.RETAILER_DELETE_FAILURE);
