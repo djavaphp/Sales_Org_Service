@@ -61,6 +61,8 @@ public class MasterDataUtil {
 	public static MstEmployee convertEmployeeMasterForCreate(EmployeeMasterVO vo){
 		MstEmployee master = new MstEmployee();
 		master.setEmpName(vo.getEmpName());
+		master.setPassword("india123");
+		master.setIsActive(Boolean.TRUE);
 		return master;
 	}
 	

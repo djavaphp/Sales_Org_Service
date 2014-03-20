@@ -101,5 +101,13 @@ public class MasterCommonMessages {
 	public static final String RETAILER_INVALID_ID="Invalid Retailer ID !";
 	public static final String RETAILER_BLANK_ID="No Retailer ID Found!";
 	public static final String RETAILER_AREA_ID_BLANK="No Area Found to mapped with Retailer!";
+	
+	/* MasterService MasterCommonMessages related to Authenticate User*/
+	public static final String INVALID_EMP_CODE="Invalid Employee Code!";
+	public static final String EMP_CODE_BLANK="Blank Employee Code!";
+	public static final String PASSWORD_BLANK="Blank Password.";
+	public static final String INVALID_AUTHENTICATION="Invalid Employee Code or Password.";
+	public static final String SUCCESS_AUTHENTICATION="Login Successful.";
+	
 
 }

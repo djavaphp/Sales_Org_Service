@@ -3,6 +3,8 @@ package com.sales.wb.service.imp;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,6 +70,7 @@ public class MasterServiceImp implements MasterService{
 	
 	@Autowired
 	private RetailerFacade retailerFacade;
+		
 	
 	public GetPaymentModeResp getAllPaymentModes() {
 		log.info("==== Inside getAllPaymentModes =====");
@@ -502,6 +505,33 @@ public class MasterServiceImp implements MasterService{
 			e.printStackTrace();
 			return new GetRetailerResp( new Resp(RespCode.FAIL, MasterCommonMessages.EXCEPTION_MESSAGE));
 		}
-	}	
-	
+	}
+
+	@Transactional
+	public Resp authenticateUser(EmployeeMasterVO vo) {
+		log.info("==== Inside authenticateUser =====");		
+		try {
+			if (vo.getEmpCode() != null) {
+				if (vo.getPassword() != null) {
+					MstEmployee empMaster = empFacade.getEmployee(vo.getEmpCode());
+					if(empMaster!=null){
+						if(empMaster.getPassword().equals(vo.getPassword())){
+							return new Resp(RespCode.SUCCESS,MasterCommonMessages.SUCCESS_AUTHENTICATION);
+						}else{
+							return new Resp(RespCode.FAIL,MasterCommonMessages.INVALID_AUTHENTICATION);
+						}						
+					}else{
+						return new Resp(RespCode.FAIL,MasterCommonMessages.INVALID_EMP_CODE);	
+					}					
+				} else {
+					return new Resp(RespCode.FAIL,MasterCommonMessages.PASSWORD_BLANK);
+				}
+			} else {
+				return new Resp(RespCode.FAIL,MasterCommonMessages.EMP_CODE_BLANK);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Resp(RespCode.FAIL,	MasterCommonMessages.EXCEPTION_MESSAGE);
+		}
+	}
 }

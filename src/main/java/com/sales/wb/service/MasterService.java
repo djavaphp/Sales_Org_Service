@@ -19,7 +19,7 @@ import com.sales.wb.vo.ItemMasterVO;
 import com.sales.wb.vo.RetailerVO;
 
 /**
-* ALL the Common Master Services : PaymentMode , Company , BillBook , Area , Employee , Item , Retailer
+* ALL the Common Master Services : PaymentMode , Company , BillBook , Area , Employee , Item , Retailer , Authenticate Login
 * @author Kruti Jani Last modified : 10-03-2014 
 */
 @WebService
@@ -45,4 +45,5 @@ public interface MasterService {
 	public Resp updateRetailer(RetailerVO vo);
 	public Resp blockRetailer(Long id);
 	public GetRetailerResp getRetailerDtl();	
+	public Resp authenticateUser(EmployeeMasterVO vo);
 }
