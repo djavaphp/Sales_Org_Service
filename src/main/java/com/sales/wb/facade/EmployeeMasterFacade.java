@@ -1,5 +1,6 @@
 package com.sales.wb.facade;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -22,15 +23,6 @@ public class EmployeeMasterFacade implements AbstractDao<MstEmployee>{
 		 return (Long) sessionFactory.getCurrentSession().save(entity);
 		
 	}
-	
-/*	public void update(MstEmployee entity){
-		sessionFactory.getCurrentSession().update(entity);
-	}
-	
-	public void delete(MstEmployee entity){
-		sessionFactory.getCurrentSession().delete(entity);
-	}
-*/	
 	public List<MstEmployee> getAll(){
 		try{
 			Query q = sessionFactory.getCurrentSession().createQuery("select g from MstEmployee g"); 
@@ -41,7 +33,16 @@ public class EmployeeMasterFacade implements AbstractDao<MstEmployee>{
 			return null;
 		}
 	}	
-
+	public MstEmployee getEmployee(String emp_code) {  
+        List<MstEmployee> userList = new ArrayList<MstEmployee>();  
+        Query query = sessionFactory.getCurrentSession().createQuery("from MstEmployee u where u.empCode = :empCode");  
+        query.setParameter("empCode", emp_code);  
+        userList = query.list();  
+        if (userList.size() > 0)  
+            return userList.get(0);  
+        else  
+            return null;      
+    }  
 	public MstEmployee get(Long id) {
 		return (MstEmployee) sessionFactory.getCurrentSession().get(MstEmployee.class, id);
 	}

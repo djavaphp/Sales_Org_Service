@@ -11,5 +11,6 @@
 		<mapping class="com.sales.wb.entity.BillBookMaster" />
 		<mapping class="com.sales.wb.entity.AreaMaster" />
 		<mapping class="com.sales.wb.entity.RetailerMaster" />
+		<mapping class="com.sales.wb.entity.Role" />
 	</session-factory>
 </hibernate-configuration>

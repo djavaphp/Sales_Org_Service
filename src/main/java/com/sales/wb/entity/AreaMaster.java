@@ -31,7 +31,7 @@ public class AreaMaster {
 	private String mstAreaName;
 
 	/*areaMaster is a varible name in RetailerMaster entity. */
-	@OneToMany(mappedBy="areaMaster", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="areaMaster", fetch=FetchType.EAGER)
 	private Collection<RetailerMaster> retailerMaster;
 
 	public AreaMaster(Long mstAreaId, String mstAreaCode, String mstAreaName) {

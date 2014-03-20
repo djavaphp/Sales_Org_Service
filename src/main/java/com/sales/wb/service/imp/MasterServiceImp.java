@@ -3,6 +3,8 @@ package com.sales.wb.service.imp;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,6 +70,7 @@ public class MasterServiceImp implements MasterService{
 	
 	@Autowired
 	private RetailerFacade retailerFacade;
+		
 	
 	public GetPaymentModeResp getAllPaymentModes() {
 		log.info("==== Inside getAllPaymentModes =====");
@@ -439,7 +442,13 @@ public class MasterServiceImp implements MasterService{
 				if (vo.getRetailerID()!= null) {
 					RetailerMaster retailermaster = retailerFacade.get(vo.getRetailerID());		
 					if (retailermaster != null) {
-						MasterDataUtil.convertRetailerMasterForUpdateAndDelete(retailermaster, vo, true);
+						AreaMaster areaMaster;
+						if(vo.getAreaVO().getAreaID()!=null){
+							areaMaster = areaFacade.get(vo.getAreaVO().getAreaID());
+						}else{
+							areaMaster= retailermaster.getAreaMaster();
+						}
+						MasterDataUtil.convertRetailerMasterForUpdateAndDelete(retailermaster, vo, true , areaMaster);
 						return new Resp(RespCode.SUCCESS,MasterCommonMessages.RETAILER_UPDATE_SUCCESS);
 					} else {
 						return new Resp(RespCode.FAIL,MasterCommonMessages.RETAILER_INVALID_ID);						
@@ -463,7 +472,7 @@ public class MasterServiceImp implements MasterService{
 			if (id != null) {
 				RetailerMaster retailermaster = retailerFacade.get(id);				
 				if (retailermaster != null) {
-					MasterDataUtil.convertRetailerMasterForUpdateAndDelete(retailermaster, null, false);
+					MasterDataUtil.convertRetailerMasterForUpdateAndDelete(retailermaster, null, false,null);
 					return new Resp(RespCode.SUCCESS,MasterCommonMessages.RETAILER_DELETE_SUCCESS);
 				} else {
 					return new Resp(RespCode.FAIL,MasterCommonMessages.RETAILER_DELETE_FAILURE);
@@ -496,6 +505,33 @@ public class MasterServiceImp implements MasterService{
 			e.printStackTrace();
 			return new GetRetailerResp( new Resp(RespCode.FAIL, MasterCommonMessages.EXCEPTION_MESSAGE));
 		}
-	}	
-	
+	}
+
+	@Transactional
+	public Resp authenticateUser(EmployeeMasterVO vo) {
+		log.info("==== Inside authenticateUser =====");		
+		try {
+			if (vo.getEmpCode() != null) {
+				if (vo.getPassword() != null) {
+					MstEmployee empMaster = empFacade.getEmployee(vo.getEmpCode());
+					if(empMaster!=null){
+						if(empMaster.getPassword().equals(vo.getPassword())){
+							return new Resp(RespCode.SUCCESS,MasterCommonMessages.SUCCESS_AUTHENTICATION);
+						}else{
+							return new Resp(RespCode.FAIL,MasterCommonMessages.INVALID_AUTHENTICATION);
+						}						
+					}else{
+						return new Resp(RespCode.FAIL,MasterCommonMessages.INVALID_EMP_CODE);	
+					}					
+				} else {
+					return new Resp(RespCode.FAIL,MasterCommonMessages.PASSWORD_BLANK);
+				}
+			} else {
+				return new Resp(RespCode.FAIL,MasterCommonMessages.EMP_CODE_BLANK);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Resp(RespCode.FAIL,	MasterCommonMessages.EXCEPTION_MESSAGE);
+		}
+	}
 }
