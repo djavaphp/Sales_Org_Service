@@ -20,6 +20,7 @@ import com.sales.wb.vo.EmployeeMasterVO;
 import com.sales.wb.vo.ItemMasterVO;
 import com.sales.wb.vo.PaymentModeVo;
 import com.sales.wb.vo.RetailerVO;
+import com.sales.wb.vo.RoleVo;
 
 /**
  * 
@@ -81,6 +82,11 @@ public class MasterDataUtil {
 		empVo.setEmpName(vo.getEmpName());
 		empVo.setIsActive(vo.getIsActive());
 		empVo.setEmpID(vo.getEmpId());
+		empVo.setEmpCode(vo.getEmpCode());
+		RoleVo roleVo= new RoleVo();
+		roleVo.setRoleDesc(vo.getRole().getRoleDesc());
+		roleVo.setRoleId(vo.getRole().getRoleID());
+		empVo.setRoleVo(roleVo);
 		return empVo;
 	}
 	
