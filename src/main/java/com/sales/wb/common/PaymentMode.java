@@ -1,4 +1,8 @@
 package com.sales.wb.common;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * enum for payment types to be implemented for the
  * system
@@ -22,5 +26,12 @@ public enum PaymentMode {
 	}
 	public String getPaymentModeName() {
 		return paymentTypeName;
+	}
+	public List list(){
+		List list= new ArrayList();
+		list.add(CASH);
+		list.add(CHEQUE);
+		list.add(DEBITS);		
+		return list;
 	}
 }

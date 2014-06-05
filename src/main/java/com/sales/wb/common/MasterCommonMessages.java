@@ -50,6 +50,8 @@ public class MasterCommonMessages {
 	
 	public static final String EMPLOYEE_MASTER_SERVICE_INVALID_ID="Invalid Employee ID !";
 	public static final String EMPLOYEE_MASTER_SERVICE_BLANK_ID="No Employee ID Found!";
+	public static final String EMPLOYEE_MASTER_SERVICE_ROLE_INVALID="Invalid Role!";
+	public static final String EMPLOYEE_MASTER_SERVICE_ROLE_BLANK="No Role Found!";
 	
 	/* MasterService MasterCommonMessages related to Payment */
 	public static final String PAYMENT_MODE_GET_SUCCESS="Payment Mode data retrived succesfully !";

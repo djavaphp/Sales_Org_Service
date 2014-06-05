@@ -19,12 +19,14 @@ import com.sales.wb.entity.CompanyMaster;
 import com.sales.wb.entity.ItemMaster;
 import com.sales.wb.entity.MstEmployee;
 import com.sales.wb.entity.RetailerMaster;
+import com.sales.wb.entity.Role;
 import com.sales.wb.facade.AreaFacade;
 import com.sales.wb.facade.BillBookFacade;
 import com.sales.wb.facade.CompanyFacade;
 import com.sales.wb.facade.EmployeeMasterFacade;
 import com.sales.wb.facade.ItemMasterFacade;
 import com.sales.wb.facade.RetailerFacade;
+import com.sales.wb.facade.RoleFacade;
 import com.sales.wb.service.MasterService;
 import com.sales.wb.service.vo.GetAllBillBookDtlResp;
 import com.sales.wb.service.vo.GetAreaDtlResp;
@@ -70,6 +72,9 @@ public class MasterServiceImp implements MasterService{
 	
 	@Autowired
 	private RetailerFacade retailerFacade;
+	
+	@Autowired
+	private RoleFacade roleFacade;
 		
 	
 	public GetPaymentModeResp getAllPaymentModes() {
@@ -240,12 +245,22 @@ public class MasterServiceImp implements MasterService{
 
 	@Transactional
 	public Resp createEmployee(EmployeeMasterVO empVo) {
-		log.info("==== Inside createEmployee =====");
+		log.info("==== Inside createEmployee ===== Role Id :"+empVo.getRoleVo().getRoleId());
 		try{
 			if(empVo!=null){
-				MstEmployee employeeMaster = MasterDataUtil.convertEmployeeMasterForCreate(empVo);
-				empFacade.create(employeeMaster);
-				return new Resp(RespCode.SUCCESS, MasterCommonMessages.EMPLOYEE_MASTER_SERVICE_CREATE_SUCCESS + employeeMaster.getEmpId());
+				if(empVo.getRoleVo()!=null){
+					Role role = roleFacade.get(empVo.getRoleVo().getRoleId());
+					if(role!=null){
+						MstEmployee employeeMaster = MasterDataUtil.convertEmployeeMasterForCreate(empVo,role);
+						empFacade.create(employeeMaster);
+						
+						return new Resp(RespCode.SUCCESS, MasterCommonMessages.EMPLOYEE_MASTER_SERVICE_CREATE_SUCCESS + employeeMaster.getEmpId()+" .");
+					}else{
+						return new Resp(RespCode.FAIL, MasterCommonMessages.EMPLOYEE_MASTER_SERVICE_ROLE_INVALID);
+					}
+				}else{
+					return new Resp(RespCode.FAIL, MasterCommonMessages.EMPLOYEE_MASTER_SERVICE_ROLE_BLANK);
+				}				
 			}else{
 				return new Resp(RespCode.FAIL, MasterCommonMessages.EMPLOYEE_MASTER_SERVICE_CREATE_FAILURE);
 			}			

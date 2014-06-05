@@ -13,6 +13,7 @@ import com.sales.wb.entity.CompanyMaster;
 import com.sales.wb.entity.MstEmployee;
 import com.sales.wb.entity.ItemMaster;
 import com.sales.wb.entity.RetailerMaster;
+import com.sales.wb.entity.Role;
 import com.sales.wb.vo.AreaVO;
 import com.sales.wb.vo.BillBookVo;
 import com.sales.wb.vo.CompanyVo;
@@ -59,11 +60,13 @@ public class MasterDataUtil {
 		return itemMasterVO;
 	}
 	
-	public static MstEmployee convertEmployeeMasterForCreate(EmployeeMasterVO vo){
+	public static MstEmployee convertEmployeeMasterForCreate(EmployeeMasterVO vo, Role role){
 		MstEmployee master = new MstEmployee();
 		master.setEmpName(vo.getEmpName());
+		master.setEmpCode(vo.getEmpCode());
 		master.setPassword("india123");
-		master.setIsActive(Boolean.TRUE);
+		master.setIsActive(Boolean.FALSE);
+		master.setRole(role);
 		return master;
 	}
 	
@@ -73,7 +76,7 @@ public class MasterDataUtil {
 				master.setEmpName(vo.getEmpName());	
 			}						
 		}else{
-			master.setIsActive(Boolean.FALSE);
+			master.setIsActive(Boolean.TRUE);
 		}		
 	}
 	
@@ -83,10 +86,12 @@ public class MasterDataUtil {
 		empVo.setIsActive(vo.getIsActive());
 		empVo.setEmpID(vo.getEmpId());
 		empVo.setEmpCode(vo.getEmpCode());
-		RoleVo roleVo= new RoleVo();
-		roleVo.setRoleDesc(vo.getRole().getRoleDesc());
-		roleVo.setRoleId(vo.getRole().getRoleID());
-		empVo.setRoleVo(roleVo);
+		if(vo.getRole()!=null){
+			RoleVo roleVo= new RoleVo();
+			roleVo.setRoleDesc(vo.getRole().getRoleDesc());
+			roleVo.setRoleId(vo.getRole().getRoleID());
+			empVo.setRoleVo(roleVo);
+		}		
 		return empVo;
 	}
 	
